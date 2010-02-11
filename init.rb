@@ -3,15 +3,6 @@ require 'sinatra'
 require 'haml'
 require 'sass'
 
-config = YAML::load_file("config.yml")
-
-client = FireEagle::Client.new(
-  :consumer_key         => config["oauth"]["consumer_key"],
-  :consumer_secret      => config["oauth"]["consumer_secret"],
-  :access_token         => config["oauth"]["access_token"],
-  :access_config_secret => config["oauth"]["access_token_secret"]
-  )
-  
 get '/' do
   haml :index
 end
