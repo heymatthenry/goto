@@ -1,2 +1,89 @@
-h1
-	:text-decoration none
+!logo_purple = #4e3488
+
+@font-face
+	font-family: "ChunkFive"
+/	src: url('fonts/ChunkFive/Chunkfive.eot')
+/	src: local('ChunkFive Regular')
+	src: url('fonts/ChunkFive/Chunkfive.svg#ChunkFive') format('svg')
+/	src: url('fonts/ChunkFive/Chunkfive.otf') format('opentype')
+/	src: url('fonts/ChunkFive/Chunkfive.woff') format('woff')
+
+*
+	:padding 0
+	:margin 0
+
+body
+	:font-family 'Helvetica Neue', Helvetica, 'Liberation Sans', Arial, sans-serif
+	:background-color #8DCCAE
+	:color #35283B
+	:overflow-x hidden
+
+h1	
+	a
+		:color !logo_purple
+		:font-size .7em
+		:font-family 'ChunkFive'
+		:text-decoration none
+
+	span
+		:font-size .7em
+		:text-transform lowercase
+
+ul
+	:list-style-type none
+
+#content, h1, #home
+	:-webkit-transition all 250ms ease
+	:-webkit-transform translateX(0)
+
+body.shifted 
+	#content	
+		:-webkit-transform translateX(-100%)
+	#h1
+		:-webkit-transform translateX(-50%)
+
+
+
+#home, #results
+	:position absolute
+	:top 1.5em
+
+#results
+	:left 100%
+		
+button
+	:color #35283B
+	:font-family "Helvetica Neue", Helvetica, sans-serif
+	:font-size 1.3em
+	:font-weight bold
+	:width 70%
+	:height 50px
+	:border 3px solid #4e3488
+	:background -webkit-gradient( linear, left top, left bottom, from(#BF91D4), to(#A34ECC), color-stop(0.5, #BF91D4), color-stop(0.5, #BF91D4) )
+	:margin 1em 0 3px 0
+	:text-shadow 0px 1px 0 #cecece
+	:-webkit-background-origin padding-box
+	:-webkit-background-clip border-box
+	:-webkit-border-radius 16px
+	
+fieldset
+	:background-color #CDFFCA
+	:border 6px solid #3C996C
+	:clear both
+	:margin 0 1em
+	:padding 1em
+	:text-align center
+	:-webkit-border-radius 16px
+	:width 245px
+	
+p
+	:text-align justify
+
+.geoResults
+	:color #666
+	li
+		:float left
+	li:first-child:after
+		:content "|"
+	
+@media handheld, only screen and (max-device-width: 480px)

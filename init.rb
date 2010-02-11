@@ -1,6 +1,8 @@
 require 'rubygems'
 require 'sinatra'
 require 'fireeagle'
+require 'haml'
+require 'sass'
 require 'YAML'
 
 config = YAML::load_file("config.yml")
@@ -17,7 +19,7 @@ get '/' do
 end
 
 # static routes
-get '/main.css' do
+get '/views/main.css' do
   content_type 'text/css', :charset => 'utf-8'
   sass :main
 end

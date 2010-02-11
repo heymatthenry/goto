@@ -1,11 +1,15 @@
 %html
-  %head
-    %link{:href => "/main.css", :rel => "stylesheet", :type => "text/css"}
-    %title Doer
-  %body
-    #header
-      %h1
-        %a{:href => '/'} Goto. 
-      %span Go Places
-    #container
-      = yield
+	%head
+		%meta{:charset => "utf-8"}
+		%meta{:name => "viewport", :content => "width=device-width, initial-scale=1, user-scalable=no"}
+		%link{:href => "/views/main.css", :rel => "stylesheet", :type => "text/css"}
+		%title Y! Goto.
+	%body
+		#header
+			%h1
+				%a{:href => '/'} Goto.
+				/ %span Go Places
+			#content
+				= yield
+
+		%script{:src => "/scripts/main.js", :type => "text/javascript", :charset => "utf-8"}
