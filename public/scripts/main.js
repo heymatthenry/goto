@@ -58,7 +58,7 @@
 		
 		YQL: {
 			baseUri: "http://query.yahooapis.com/v1/public/yql?",
-			buildQuery: 
+			buildQuery: function(){}
 		},
 		
 		init: function(){
