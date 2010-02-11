@@ -1,6 +1,5 @@
 require 'rubygems'
 require 'sinatra'
-require 'fireeagle'
 require 'haml'
 require 'sass'
 require 'YAML'
