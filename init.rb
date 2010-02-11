@@ -2,7 +2,6 @@ require 'rubygems'
 require 'sinatra'
 require 'haml'
 require 'sass'
-require 'YAML'
 
 config = YAML::load_file("config.yml")
 
