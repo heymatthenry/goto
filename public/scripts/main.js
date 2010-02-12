@@ -152,9 +152,11 @@
 					nameNode = document.createTextNode(el.firstChild.nodeValue);
 				} else if (el.nodeName == "SPAN") {
 					if (el.className == "name") {
-						nameNode = document.createTextNode(el.nodeValue);
+						nameNode = document.createTextNode(el.firstChild.nodeValue);
+						console.log("name");
 					} else {
 						nameNode = document.createTextNode(el.parentNode.firstChild.firstChild.nodeValue);
+						console.log("addr");
 					}
 				} else {
 					console.log(el.nodeName);
@@ -166,7 +168,8 @@
 			},
 			
 			checkIn: function(){
-				
+				var placeName = document.querySelector("#checkInLocation .name").firstChild.nodeValue;
+				alert("Congratulations! You're the comptroller of " + placeName);
 			},
 			
 			init: function(){
