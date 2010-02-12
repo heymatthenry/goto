@@ -150,6 +150,7 @@
 						nameNode;
 				if (el.nodeName == "LI")	{
 					nameNode = document.createTextNode(el.firstChild.nodeValue);
+					if (nameNode == null) nameNode = document.createTextNode(el.firstChild.firstChild.nodeValue);
 				} else if (el.nodeName == "SPAN") {
 					if (el.className == "name") {
 						nameNode = document.createTextNode(el.firstChild.nodeValue);
