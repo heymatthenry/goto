@@ -11,8 +11,9 @@
 			
 			handleSuccess: function(position){
 				Goto.Ui.slideAll("left");
-				console.log(position.coords);
 				Goto.Ui.displayResult(position.coords);
+				var query = Goto.YQL.buildQuery(position.coords, "coffeeshops");
+				Goto.YQL.submitQuery(query);
 			}
 		},
 
@@ -56,9 +57,49 @@
 			}
 		},
 		
+		Http: {
+			request: function(method, url, async, callback, data){
+				var req = new XMLHttpRequest(), response;
+				req.open(method,url,false);
+				req.send(null);
+
+				response = (req.status = 200) ? req.responseText : "xhr failed"
+
+				return (method == "get") ?
+					response :
+					"unable to get remote data";
+			}
+		},
+		
 		YQL: {
 			baseUri: "http://query.yahooapis.com/v1/public/yql?",
-			buildQuery: function(){}
+						
+			buildQuery: function(location, query){
+				var latitude = location.latitude,
+						longitude = location.longitude,
+								
+				return "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20local.search%20where%20latitude%3D'" + 
+						latitude + "'%20and%20longitude%3D'" + longitude + "'%20and%20query%3D'" + query + 
+						"'&format=json&env=http%3A%2F%2Fdatatables.org%2Falltables.env";
+			},
+			
+			submitQuery: function(query){
+				var response = Goto.Http.request("get",query);
+				return JSON.parse(response);
+			},
+			
+			parseResults: function(YQLresults){
+				var results = YQLresults.query.results.Result,
+						places = [];
+						
+				for (var i=0, len=results.length; i<len; i++){
+					var place = {}
+					place.name = results[i].Title;
+					place.address = results[i].Address;
+					places.push(place);
+				}
+				return places;
+			}
 		},
 		
 		init: function(){
@@ -69,9 +110,19 @@
 				Goto.Ui.slideAll("left");
 				Goto.Geo.getLoc();
 				e.preventDefault();
-			},false);			
+			},false);
+		},
+
+		debug: function(){
+			var location = {latitude: 37.4121, longitude: -122.022711}, 
+					query = "coffee",
+					queryStr = Goto.YQL.buildQuery(location, query),
+					result = Goto.YQL.submitQuery(queryStr);
+
+			console.log(Goto.YQL.parseResults(result));
 		}
 	}
-	
+
+	Goto.debug();
 	Goto.init();
 })()

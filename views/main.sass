@@ -16,7 +16,6 @@ body
 	:font-family 'Helvetica Neue', Helvetica, 'Liberation Sans', Arial, sans-serif
 	:background-color #8DCCAE
 	:color #35283B
-	:overflow-x hidden
 
 h1	
 	a
@@ -32,6 +31,8 @@ h1
 ul
 	:list-style-type none
 
+#content
+
 #content, h1, #home
 	:-webkit-transition all 250ms ease
 	:-webkit-transform translateX(0)
@@ -42,11 +43,9 @@ body.shifted
 	#h1
 		:-webkit-transform translateX(-50%)
 
-
-
 #home, #results
 	:position absolute
-	:top 1.5em
+	:top 1em
 
 #results
 	:left 100%
@@ -70,20 +69,23 @@ fieldset
 	:background-color #CDFFCA
 	:border 6px solid #3C996C
 	:clear both
-	:margin 0 1em
+	:margin 0 .5em
 	:padding 1em
 	:text-align center
 	:-webkit-border-radius 16px
-	:width 245px
+	:width 260px
 	
 p
 	:text-align justify
 
 .geoResults
+	:font-size .8em
 	:color #666
+	:padding 0 .5em .5em .5em	
+	:text-align center
+	
 	li
 		:float left
-	li:first-child:after
-		:content "|"
-	
+		:width 11em
+			
 @media handheld, only screen and (max-device-width: 480px)
