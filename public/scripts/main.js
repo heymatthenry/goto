@@ -18,7 +18,20 @@
 
 		Ui: {
 			slideAll: function(dir){
-				document.body.className = "shifted";
+				var klass = document.body.className;
+				if (dir == "left"){
+					if (klass == ""){
+						document.body.className = "shifted";
+					} else {
+						document.body.className += " twice";						
+					}
+				} else {
+					if (klass.match("twice")){
+						document.body.className = "shifted"; 
+					} else {
+						document.body.className = ""; 						
+					}
+				}
 			},
 			
 			toggleSpinner: function(el){

@@ -37,18 +37,26 @@ ul
 	:-webkit-transition all 250ms ease
 	:-webkit-transform translateX(0)
 
-body.shifted 
-	#content	
+body.shifted
+	#content
 		:-webkit-transform translateX(-100%)
+
 	#h1
 		:-webkit-transform translateX(-50%)
 
-#home, #results
+body.shifted.twice
+	#content
+		:-webkit-transform translateX(-100%)
+
+#home, #results, #checkIn
 	:position absolute
 	:top 1em
 
 #results
 	:left 100%
+
+#checkIn
+	:left 200%
 		
 button
 	:color #35283B
