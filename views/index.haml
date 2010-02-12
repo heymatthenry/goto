@@ -20,5 +20,7 @@
 		%p Check in here?
 		%form#checkInLocation
 			%span.name
+			%input{:type => "hidden", :id => "check_in_name"}
+			%input{:type => "hidden", :id => "check_in_id"}
 			%button{:type => "submit", :id => "check_in"} Check in
 		
