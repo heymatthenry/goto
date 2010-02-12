@@ -11,9 +11,8 @@
 			
 			handleSuccess: function(position){
 				Goto.Ui.slideAll("left");
-				Goto.Ui.displayResult(position.coords);
-				var query = Goto.YQL.buildQuery(position.coords, "coffeeshops");
-				Goto.YQL.submitQuery(query);
+				Goto.Ui.displayCoords(position.coords);
+				Goto.Main.doSearch(position.coords);
 			}
 		},
 
@@ -34,7 +33,7 @@
 				parent.appendChild(spinner);
 			},
 
-			displayResult: function(result){
+			displayCoords: function(result){
 				var resultsContainer = document.getElementById("results").childNodes[0],
 						p = document.createElement('p');
 
@@ -54,6 +53,21 @@
 					p.appendChild(msg),
 					resultsContainer.appendChild(p);
 				}			
+			},
+			
+			makePlaceList: function(places){
+				var ul = document.getElementsByClassName("placeResults")[0];
+				for (var i=0, len=places.length; i<len; i++){
+					var li = document.createElement("li"),
+							name = document.createTextNode(places[i].name),
+							addr = document.createTextNode(places[i].address),
+							span = document.createElement("span");
+					
+					li.appendChild(name);
+					span.appendChild(addr);
+					li.appendChild(span);
+					ul.appendChild(li);
+				}
 			}
 		},
 		
@@ -102,27 +116,43 @@
 			}
 		},
 		
-		init: function(){
-			var button = document.getElementById("get_location");
+		Main: {
+			doSearch: function(location){
+				var searchCats = ["pizza","coffee","Frys"],
+						searchResults = [];
+				for (var i=0, len = searchCats.length; i<len; i++){
+					var query = Goto.YQL.buildQuery(location, searchCats[i]),
+							places = Goto.YQL.submitQuery(query);
+						  list = Goto.YQL.parseResults(places);
+					for (var j=0, jlen=list.length; j<jlen; j++){
+						searchResults.push(list[j]);
+					}
+				}
+				Goto.Ui.makePlaceList(searchResults);
+			},
+			
+			init: function(){
+				var button = document.getElementById("get_location");
 
-			button.addEventListener("click",function(e){
-				Goto.Ui.toggleSpinner(button);
-				Goto.Ui.slideAll("left");
-				Goto.Geo.getLoc();
-				e.preventDefault();
-			},false);
-		},
+				button.addEventListener("click",function(e){
+					Goto.Ui.toggleSpinner(button);
+					Goto.Ui.slideAll("left");
+					Goto.Geo.getLoc();
+					e.preventDefault();
+				},false);
+			},
 
-		debug: function(){
-			var location = {latitude: 37.4121, longitude: -122.022711}, 
-					query = "coffee",
-					queryStr = Goto.YQL.buildQuery(location, query),
-					result = Goto.YQL.submitQuery(queryStr);
+			debug: function(){
+				var location = {latitude: 37.4121, longitude: -122.022711}, 
+						query = "coffee",
+						queryStr = Goto.YQL.buildQuery(location, query),
+						result = Goto.YQL.submitQuery(queryStr);
 
-			console.log(Goto.YQL.parseResults(result));
+				console.log(result);
+			}
 		}
 	}
 
-	Goto.debug();
-	Goto.init();
+	// Goto.Main.debug();
+	Goto.Main.init();
 })()

@@ -65,7 +65,7 @@ button
 	:-webkit-background-clip border-box
 	:-webkit-border-radius 16px
 	
-fieldset
+.bubble
 	:background-color #CDFFCA
 	:border 6px solid #3C996C
 	:clear both
@@ -79,13 +79,35 @@ p
 	:text-align justify
 
 .geoResults
-	:font-size .8em
 	:color #666
+	:display none
+	:font-size .8em
 	:padding 0 .5em .5em .5em	
 	:text-align center
 	
 	li
 		:float left
 		:width 11em
-			
+
+.placeResults
+	:background-color #BF91D4
+	:border 2px solid #A34ECC
+	:-webkit-border-radius 16px 
+	
+	li
+		:border-bottom 1px solid #A34ECC
+		:padding .2em 0
+
+	li:first-child
+		:-webkit-border-top-left-radius 16px
+		:-webkit-border-top-right-radius 16px
+
+	li:last-child
+		:-webkit-border-bottom-left-radius 16px
+		:-webkit-border-bottom-right-radius 16px
+		
+	span
+		:display block
+		:font-size .5em
+		
 @media handheld, only screen and (max-device-width: 480px)
