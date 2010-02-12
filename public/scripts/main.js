@@ -76,7 +76,7 @@
 					li.appendChild(addrSpan);
 					ul.appendChild(li);
 
-					li.addEventListener("click", function(e){Goto.Main.checkIn(e.target)}, false)
+					li.addEventListener("click", function(e){Goto.Main.selectLocation(e.target)}, false)
 				}
 			}
 		},
@@ -142,22 +142,31 @@
 				Goto.Ui.makePlaceList(searchResults);
 			},
 			
-			checkIn: function(placeLi){
+			selectLocation: function(placeLi){
 				var container = document.getElementById("checkInLocation"),
 						input = document.createElement("input"),
-						placeName = document.createElement("span"),
+						nameSpan = document.querySelector("#checkInLocation .name"),
 						nameNode = document.createTextNode(placeLi.firstChild.nodeValue);
-						button = document.createElement("button");
 
-				placeName.appendChild(nameNode);
-				container.appendChild(placeName);				
+				nameSpan.appendChild(nameNode);
 				Goto.Ui.slideAll("left");
 			},
 			
+			checkIn: function(){
+				
+			},
+			
 			init: function(){
-				var button = document.getElementById("get_location");
+				var locationButton = document.getElementById("get_location");
+				var checkInButton = document.getElementById("check_in");				
+				
+				locationButton.addEventListener("click",function(e){
+					Goto.Ui.slideAll("left");
+					Goto.Geo.getLoc();
+					e.preventDefault();
+				},false);
 
-				button.addEventListener("click",function(e){
+				checkInButton.addEventListener("click",function(e){
 					Goto.Ui.slideAll("left");
 					Goto.Geo.getLoc();
 					e.preventDefault();
