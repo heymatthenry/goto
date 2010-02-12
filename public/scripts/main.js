@@ -149,6 +149,7 @@
 						nameNode = document.createTextNode(placeLi.firstChild.nodeValue);
 
 				nameSpan.appendChild(nameNode);
+				window.scroll(window.scrollX,0);
 				Goto.Ui.slideAll("left");
 			},
 			
@@ -167,8 +168,6 @@
 				},false);
 
 				checkInButton.addEventListener("click",function(e){
-					Goto.Ui.slideAll("left");
-					Goto.Geo.getLoc();
 					e.preventDefault();
 				},false);
 			},
