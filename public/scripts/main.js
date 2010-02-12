@@ -10,7 +10,6 @@
 			},
 			
 			handleSuccess: function(position){
-				Goto.Ui.slideAll("left");
 				Goto.Ui.displayCoords(position.coords);
 				Goto.Main.doSearch(position.coords);
 			}
@@ -32,20 +31,9 @@
 						document.body.className = ""; 						
 					}
 				}
+				console.log(document.body.getAttribute("class"));
 			},
 			
-			toggleSpinner: function(el){
-				var parent = el.parentElement,
-						spinner = document.createElement("img"),
-						spinnerImg = "images/spinner-big.gif";
-
-				spinner.setAttribute("src",spinnerImg);
-				spinner.setAttribute("alt","getting location");
-				spinner.setAttribute("class","spinner");
-
-				parent.appendChild(spinner);
-			},
-
 			displayCoords: function(result){
 				var resultsContainer = document.getElementById("results").childNodes[0],
 						p = document.createElement('p');
@@ -69,17 +57,26 @@
 			},
 			
 			makePlaceList: function(places){
+				document.getElementsByClassName("gotResults")[0].style.display = "block"
+				document.getElementsByClassName("spinner")[0].style.display = "none"
 				var ul = document.getElementsByClassName("placeResults")[0];
 				for (var i=0, len=places.length; i<len; i++){
 					var li = document.createElement("li"),
-							name = document.createTextNode(places[i].name),
-							addr = document.createTextNode(places[i].address),
-							span = document.createElement("span");
+							idNode   = document.createTextNode(places[i].id),
+							nameNode = document.createTextNode(places[i].name),
+							addrNode = document.createTextNode(places[i].address),
+							nameSpan = document.createElement("span");
+							addrSpan = document.createElement("span");
 					
-					li.appendChild(name);
-					span.appendChild(addr);
-					li.appendChild(span);
+					li.setAttribute("data-yahoo-id",idNode);
+					nameSpan.appendChild(nameNode);
+					li.appendChild(nameSpan);
+					addrSpan.appendChild(addrNode);
+					addrSpan.className = "address";
+					li.appendChild(addrSpan);
 					ul.appendChild(li);
+
+					li.addEventListener("click", function(e){Goto.Main.checkIn(e.target)}, false)
 				}
 			}
 		},
@@ -123,6 +120,7 @@
 					var place = {}
 					place.name = results[i].Title;
 					place.address = results[i].Address;
+					place.id = results[i].id;
 					places.push(place);
 				}
 				return places;
@@ -144,11 +142,22 @@
 				Goto.Ui.makePlaceList(searchResults);
 			},
 			
+			checkIn: function(placeLi){
+				var container = document.getElementById("checkInLocation"),
+						input = document.createElement("input"),
+						placeName = document.createElement("span"),
+						nameNode = document.createTextNode(placeLi.firstChild.nodeValue);
+						button = document.createElement("button");
+
+				placeName.appendChild(nameNode);
+				container.appendChild(placeName);				
+				Goto.Ui.slideAll("left");
+			},
+			
 			init: function(){
 				var button = document.getElementById("get_location");
 
 				button.addEventListener("click",function(e){
-					Goto.Ui.toggleSpinner(button);
 					Goto.Ui.slideAll("left");
 					Goto.Geo.getLoc();
 					e.preventDefault();

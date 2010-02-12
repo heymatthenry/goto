@@ -31,6 +31,11 @@ h1
 ul
 	:list-style-type none
 
+#header
+	:background -webkit-gradient( linear, left top, left bottom, from(#BF91D4), to(#A34ECC), color-stop(0.5, #BF91D4), color-stop(0.5, #BF91D4) )
+	:padding .2em 0
+	:text-align center
+
 #content
 
 #content, h1, #home
@@ -41,12 +46,9 @@ body.shifted
 	#content
 		:-webkit-transform translateX(-100%)
 
-	#h1
-		:-webkit-transform translateX(-50%)
-
 body.shifted.twice
 	#content
-		:-webkit-transform translateX(-100%)
+		:-webkit-transform translateX(-200%)
 
 #home, #results, #checkIn
 	:position absolute
@@ -82,8 +84,13 @@ button
 	:text-align center
 	:-webkit-border-radius 16px
 	:width 260px
+
+#results
+	.bubble
+		:background-image src(/images/spinner-big.gif) 50% 50% no-repeat
 	
 p
+	:margin .4em 0	
 	:text-align justify
 
 .geoResults
@@ -96,6 +103,9 @@ p
 	li
 		:float left
 		:width 11em
+
+.gotResults
+	:display none
 
 .placeResults
 	:background-color #BF91D4
@@ -114,7 +124,7 @@ p
 		:-webkit-border-bottom-left-radius 16px
 		:-webkit-border-bottom-right-radius 16px
 		
-	span
+	span.address
 		:display block
 		:font-size .5em
 		

@@ -2,14 +2,21 @@
 	#getLocation
 		.bubble
 			%h2 Howdy!
-			%p To get started, just click on that handsome purple button, and we'll see if we can't figure out where the heck you are.
+			%p Welcome to Goto, the great new social thingy for nerds. 
+			%p To get started, just click on that handsome purple button.
 			%button{:type => "submit", :id => "get_location"} Get location
 
 #results
 	%ul.geoResults
 	.bubble
-		%h2 Check in
-		%ul.placeResults
+		%img.spinner{:src => "images/spinner-big.gif"}
+		
+		.gotResults
+			%p Tap one of these guys to check in somewhere.
+			%ul.placeResults
 
 #checkIn
 	.bubble
+		%p Check in here?
+		%form#checkInLocation
+		
