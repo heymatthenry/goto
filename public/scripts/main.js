@@ -70,13 +70,14 @@
 					
 					li.setAttribute("data-yahoo-id",idNode);
 					nameSpan.appendChild(nameNode);
+					nameSpan.className = "name";
 					li.appendChild(nameSpan);
 					addrSpan.appendChild(addrNode);
 					addrSpan.className = "address";
 					li.appendChild(addrSpan);
 					ul.appendChild(li);
 
-					li.addEventListener("click", function(e){Goto.Main.selectLocation(e.target)}, false)
+					li.addEventListener("click", function(e){Goto.Main.selectLocation(e.target)}, true)
 				}
 			}
 		},
@@ -142,12 +143,23 @@
 				Goto.Ui.makePlaceList(searchResults);
 			},
 			
-			selectLocation: function(placeLi){
+			selectLocation: function(el){
 				var container = document.getElementById("checkInLocation"),
 						input = document.createElement("input"),
 						nameSpan = document.querySelector("#checkInLocation .name"),
-						nameNode = document.createTextNode(placeLi.firstChild.nodeValue);
-
+						nameNode;
+				if (el.nodeName == "LI")	{
+					nameNode = document.createTextNode(el.firstChild.nodeValue);
+				} else if (el.nodeName == "SPAN") {
+					if (el.className == "name") {
+						nameNode = document.createTextNode(el.nodeValue);
+					} else {
+						nameNode = document.createTextNode(el.parentNode.firstChild.firstChild.nodeValue);
+					}
+				} else {
+					console.log(el.nodeName);
+				}
+				
 				nameSpan.appendChild(nameNode);
 				window.scroll(window.scrollX,0);
 				Goto.Ui.slideAll("left");
@@ -168,6 +180,7 @@
 				},false);
 
 				checkInButton.addEventListener("click",function(e){
+					Goto.Main.checkIn();
 					e.preventDefault();
 				},false);
 			},
